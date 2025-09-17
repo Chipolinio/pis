@@ -81,7 +81,7 @@ def read_lines(file_path: str) -> list:
 
     Args:        file_path: Путь к файлу
     Returns:        Список строк файла    """
-    with open(file_path, "r") as f:
+    with open(file_path, "r", encoding="utf-8") as f:
         return f.readlines()
 
 

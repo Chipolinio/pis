@@ -56,6 +56,7 @@ def parse_rate_with_source(input_str: str) -> dict:
             "source": source}
 
 
+# "USD" "RUB" 88.50 2025.09.03 0.5
 def parse_rate_with_fee(input_str: str) -> dict:
     """Парсит строку с информацией о курсе.
 
@@ -81,7 +82,7 @@ def read_lines(file_path: str) -> list:
 
     Args:        file_path: Путь к файлу
     Returns:        Список строк файла    """
-    with open(file_path, "r", encoding="utf-8") as f:
+    with open(file_path, "r") as f:
         return f.readlines()
 
 

@@ -7,13 +7,15 @@ def parse_currency_rate(input_str: str) -> dict:
     currency1 = parts[0].replace('"', '')
     currency2 = parts[1].replace('"', '')
     rate = float(parts[2])
-    date = parts[3]
+    date = parse_data(parts[3])
 
     return {"type": "currency_rate",
             "from_currency": currency1,
             "to_currency": currency2,
             "rate": rate,
-            "date": date}
+            "YY": date[0],
+            "mm": date[1],
+            "dd": date[2]}
 
 
 def parse_historical_rate(input_str: str) -> dict:
@@ -25,15 +27,19 @@ def parse_historical_rate(input_str: str) -> dict:
     currency1 = parts[0].replace('"', '')
     currency2 = parts[1].replace('"', '')
     rate = float(parts[2])
-    date1 = parts[3]
-    date2 = parts[4]
+    date1 = parse_data(parts[3])
+    date2 = parse_data(parts[4])
 
     return {"type": "historical_rate",
             "from_currency": currency1,
             "to_currency": currency2,
             "rate": rate,
-            "from_date": date1,
-            "to_date": date2}
+            "from_YY": date1[0],
+            "from_mm": date1[1],
+            "from_dd": date1[2],
+            "to_YY": date2[0],
+            "to_mm": date2[1],
+            "todd": date2[2]}
 
 
 def parse_rate_with_source(input_str: str) -> dict:
@@ -45,18 +51,30 @@ def parse_rate_with_source(input_str: str) -> dict:
     currency1 = parts[0].replace('"', '')
     currency2 = parts[1].replace('"', '')
     rate = float(parts[2])
-    date = parts[3]
+    date = parse_data(parts[3])
     source = parts[4].replace('"', '')
 
     return {"type": "rate_with_source",
             "from_currency": currency1,
             "to_currency": currency2,
             "rate": rate,
-            "date": date,
+            "YY": date[0],
+            "mm": date[1],
+            "dd": date[2],
             "source": source}
 
+def parse_data(data: str) -> (str, str, str):
+    """Парсит строку с датой.
 
-# "USD" "RUB" 88.50 2025.09.03 0.5
+        Args:            input_str: Строка для парсинга в формате "date"
+        Returns:            Кортеж со строками (YY, mm, dd)"""
+    data = data.split(".")
+    year = data[0]
+    mm = data[1]
+    day = data[2]
+    return (year, mm, day)
+
+
 def parse_rate_with_fee(input_str: str) -> dict:
     """Парсит строку с информацией о курсе.
 
@@ -66,14 +84,16 @@ def parse_rate_with_fee(input_str: str) -> dict:
     currency1 = parts[0].replace('"', '')
     currency2 = parts[1].replace('"', '')
     rate = float(parts[2])
-    date = parts[3]
+    date = parse_data(parts[3])
     fee = float(parts[4])
 
     return {"type": "rate_with_fee",
             "from_currency": currency1,
             "to_currency": currency2,
             "rate": rate,
-            "date": date,
+            "YY": date[0],
+            "mm": date[1],
+            "dd": date[2],
             "fee": fee}
 
 

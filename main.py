@@ -74,3 +74,12 @@ def parse_rate_with_fee(input_str: str) -> dict:
             "rate": rate,
             "date": date,
             "fee": fee}
+
+
+def read_lines(file_path: str) -> list:
+    """Читает все строки из файла.
+
+    Args:        file_path: Путь к файлу
+    Returns:        Список строк файла    """
+    with open(file_path, "r") as f:
+        return f.readlines()

@@ -54,3 +54,23 @@ def parse_rate_with_source(input_str: str) -> dict:
             "rate": rate,
             "date": date,
             "source": source}
+
+
+def parse_rate_with_fee(input_str: str) -> dict:
+    """Парсит строку с информацией о курсе.
+
+        Args:            input_str: Строка для парсинга в формате "from_currency" "to_currency" "rate" "date" "fee"
+        Returns:            Словарь с ключами: from_currency to_currency rate date fee    """
+    parts = input_str.strip().split()
+    currency1 = parts[0].replace('"', '')
+    currency2 = parts[1].replace('"', '')
+    rate = float(parts[2])
+    date = parts[3]
+    fee = float(parts[4])
+
+    return {"type": "rate_with_fee",
+            "from_currency": currency1,
+            "to_currency": currency2,
+            "rate": rate,
+            "date": date,
+            "fee": fee}

@@ -102,3 +102,23 @@ def parse_file(file_path: str, parser_func) -> list[dict] | None:
         print(f"Ошибка: файл {file_path} не найден")
     except Exception as e:
         print(f"Ошибка при обработке файла {file_path}: {e}")
+
+
+def main() -> None:
+    file_parsers = [
+        ("1.txt", parse_currency_rate),
+        ("2.txt", parse_historical_rate),
+        ("3.txt", parse_rate_with_source),
+        ("4.txt", parse_rate_with_fee),
+    ]
+
+    for file_path, func in file_parsers:
+        objects = parse_file(file_path, func)
+        for obj in objects:
+            print(obj)
+
+    print()
+
+
+if __name__ == "__main__":
+    main()

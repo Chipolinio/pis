@@ -2,6 +2,7 @@ from file_manager import process_file
 from Parser import Parser
 
 def main() -> None:
+    """Основаная функция"""
     parser = Parser()
     file_parsers = [
         ('1.txt', parser.parse_currency_rate, "Курсы валют"),

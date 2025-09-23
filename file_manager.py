@@ -4,9 +4,11 @@ from errors import ParsingError
 def read_file_lines(file_path: str) -> List[str]:
     """Читает все строки из файла, пропуская пустые.
 
-    Args: file_path: путь к файлу
+    Args:
+        file_path: путь к файлу
 
-    Returns: список строк файла
+    Returns:
+        список строк файла
     """
     try:
         with open(file_path, "r", encoding="utf-8") as f:
@@ -25,7 +27,8 @@ def process_file(file_path: str, parser_func: Callable[[str], Any], data_name: s
         parser_func: функция/метод парсера для каждой строки
         data_name: название типа данных (для информативного вывода)
 
-    Returns: список объектов, полученных после парсинга
+    Returns:
+        список объектов, полученных после парсинга
     """
     parsed_objects: List[Any] = []
     try:

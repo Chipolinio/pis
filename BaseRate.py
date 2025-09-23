@@ -4,7 +4,7 @@ from errors import ValidationError
 
 @dataclass
 class BaseRate:
-    """Общий базовый класс для валютных записей"""
+    """Общий базовый класс для валютных записей."""
     from_currency: str
     to_currency: str
     rate: float

@@ -4,7 +4,7 @@ from errors import ValidationError
 
 @dataclass
 class RateWithFee(DatedRate):
-    """Курс валюты с комиссией"""
+    """Курс валюты с комиссией."""
     fee: float
 
     def __post_init__(self):

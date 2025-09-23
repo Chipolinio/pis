@@ -5,7 +5,7 @@ from BaseRate import BaseRate
 
 @dataclass
 class DatedRate(BaseRate):
-    """Курс валюты с одной датой"""
+    """Курс валюты с одной датой."""
     date: tuple[str, str, str]
 
     def __post_init__(self):

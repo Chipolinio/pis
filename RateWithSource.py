@@ -4,6 +4,7 @@ from errors import ValidationError
 
 @dataclass
 class RateWithSource(DatedRate):
+    """Курс валюты с источником."""
     source: str
 
     def __post_init__(self):

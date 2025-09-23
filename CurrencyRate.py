@@ -3,5 +3,5 @@ from DatedRate import DatedRate
 
 @dataclass
 class CurrencyRate(DatedRate):
-    """Обычный курс валюты"""
+    """Обычный курс валюты."""
     pass

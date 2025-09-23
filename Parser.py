@@ -7,9 +7,7 @@ from errors import ParsingError
 from typing import List
 
 class Parser:
-
-
-
+    """Класс для парсинга."""
     def __init__(self):
         self.currency_rate: List[CurrencyRate] = []
         self.historical_rate: List[HistoricalRate] = []

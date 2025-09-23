@@ -5,7 +5,7 @@ from datetime import datetime
 
 @dataclass
 class HistoricalRate(BaseRate):
-    """Курс валюты за диапазон дат"""
+    """Курс валюты за диапазон дат."""
     from_date: tuple[str, str, str]
     to_date: tuple[str, str, str]
 

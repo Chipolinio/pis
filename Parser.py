@@ -1,0 +1,110 @@
+from BaseRate import BaseRate
+from CurrencyRate import CurrencyRate
+from HistoricalRate import HistoricalRate
+from RateWithSource import RateWithSource
+from RateWithFee import RateWithFee
+from errors import ParsingError
+from typing import List
+
+class Parser:
+
+
+
+    def __init__(self):
+        self.currency_rate: List[CurrencyRate] = []
+        self.historical_rate: List[HistoricalRate] = []
+        self.rate_with_source: List[RateWithSource] = []
+        self.rate_with_fee: List[RateWithFee] = []
+
+    @staticmethod
+    def parse_date(date_str: str) -> tuple[str, str, str]:
+        """Парсит строку с датой в формате YYYY.MM.DD"""
+        parts = date_str.split(".")
+        if len(parts) != 3:
+            raise ParsingError(f"Неверный формат даты: {date_str}")
+        return parts[0], parts[1], parts[2]
+
+    def parse_currency_rate(self, line: str) -> CurrencyRate:
+        """Парсит строку с информацией о курсе."""
+        try:
+            parts = line.strip().split()
+            obj = CurrencyRate(
+                from_currency=parts[0].replace('"', ''),
+                to_currency=parts[1].replace('"', ''),
+                rate=float(parts[2]),
+                date=self.parse_date(parts[3])
+            )
+            self.currency_rate.append(obj)
+            return obj
+        except Exception as e:
+            raise ParsingError(f"Ошибка парсинга currency_rate: {line}") from e
+
+    def parse_historical_rate(self, line: str) -> HistoricalRate:
+        """Парсит строку с информацией о курсе."""
+        try:
+            parts = line.strip().split()
+            obj = HistoricalRate(
+                from_currency=parts[0].replace('"', ''),
+                to_currency=parts[1].replace('"', ''),
+                rate=float(parts[2]),
+                from_date=self.parse_date(parts[3]),
+                to_date=self.parse_date(parts[4])
+            )
+            self.historical_rate.append(obj)
+            return obj
+        except Exception as e:
+            raise ParsingError(f"Ошибка парсинга historical_rate: {line}") from e
+
+    def parse_rate_with_source(self, line: str) -> RateWithSource:
+        """Парсит строку с информацией о курсе."""
+        try:
+            parts = line.strip().split()
+            obj = RateWithSource(
+                from_currency=parts[0].replace('"', ''),
+                to_currency=parts[1].replace('"', ''),
+                rate=float(parts[2]),
+                date=self.parse_date(parts[3]),
+                source=parts[4].replace('"', '')
+            )
+            self.rate_with_source.append(obj)
+            return obj
+        except Exception as e:
+            raise ParsingError(f"Ошибка парсинга rate_with_source: {line}") from e
+
+    def parse_rate_with_fee(self, line: str) -> RateWithFee:
+        """Парсит строку с информацией о курсе"""
+        try:
+            parts = line.strip().split()
+            obj = RateWithFee(
+                from_currency=parts[0].replace('"', ''),
+                to_currency=parts[1].replace('"', ''),
+                rate=float(parts[2]),
+                date=self.parse_date(parts[3]),
+                fee=float(parts[4])
+            )
+            self.rate_with_fee.append(obj)
+            return obj
+        except Exception as e:
+            raise ParsingError(f"Ошибка парсинга rate_with_fee: {line}") from e
+
+    def get_all_value(self) -> List[BaseRate]:
+        """Возвращает все валютные записи"""
+        all_value: List[BaseRate] = []
+        all_value.extend(self.currency_rate)
+        all_value.extend(self.historical_rate)
+        all_value.extend(self.rate_with_source)
+        all_value.extend(self.rate_with_fee)
+        return all_value
+
+    def clear_data(self) -> None:
+        """Очищает все внутренние списки"""
+        self.currency_rate.clear()
+        self.historical_rate.clear()
+        self.rate_with_source.clear()
+        self.rate_with_fee.clear()
+
+
+
+
+
+

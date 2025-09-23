@@ -21,6 +21,5 @@ def main() -> None:
     print(f"Всего валютных записей: {len(parser.get_all_value())}")
 
 
-
 if __name__ == "__main__":
     main()

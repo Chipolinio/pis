@@ -1,5 +1,3 @@
-from parse import parse_currency_rate, parse_historical_rate, parse_rate_with_source, parse_rate_with_fee
-
 def read_lines(file_path: str) -> list:
     """Читает все строки из файла.
 

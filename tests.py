@@ -3,7 +3,7 @@ from unittest.mock import mock_open, patch
 from io import StringIO
 
 from Parser import Parser
-from errors import ParsingError, ValidationError
+from Errors import ParsingError, ValidationError
 from CurrencyRate import CurrencyRate
 from HistoricalRate import HistoricalRate
 from RateWithSource import RateWithSource

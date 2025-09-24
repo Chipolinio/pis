@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from DatedRate import DatedRate
-from errors import ValidationError
+from Errors import ValidationError
 
 @dataclass
 class RateWithSource(DatedRate):

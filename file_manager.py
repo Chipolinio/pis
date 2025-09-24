@@ -1,5 +1,9 @@
 from typing import List, Callable, Any
-from errors import ParsingError
+from Errors import ParsingError
+from CurrencyRate import CurrencyRate
+from HistoricalRate import HistoricalRate
+from RateWithSource import RateWithSource
+from RateWithFee import RateWithFee
 
 def read_file_lines(file_path: str) -> List[str]:
     """Читает все строки из файла, пропуская пустые.
@@ -20,35 +24,28 @@ def read_file_lines(file_path: str) -> List[str]:
 
 
 def process_file(file_path: str, parser_func: Callable[[str], Any], data_name: str) -> List[Any]:
-    """Обрабатывает файл с использованием метода парсера.
-
-    Args:
-        file_path: путь к файлу
-        parser_func: функция/метод парсера для каждой строки
-        data_name: название типа данных (для информативного вывода)
-
-    Returns:
-        список объектов, полученных после парсинга
-    """
-    parsed_objects: List[Any] = []
+    """Обрабатывает файл с использованием метода парсера."""
+    result = []
     try:
         lines = read_file_lines(file_path)
         print(f"=== {data_name} из {file_path} ===")
         for line in lines:
             try:
                 obj = parser_func(line)
-                parsed_objects.append(obj)
+                result.append(obj)
                 print(obj)
             except ParsingError as e:
                 print(f"Ошибка обработки строки в файле {file_path}: {e}")
             except Exception as e:
                 print(f"Неожиданная ошибка при обработке строки '{line}': {e}")
         print()
-        return parsed_objects
+        return result
     except ParsingError as e:
         print(f"Ошибка: {e}")
         return []
     except Exception as e:
         print(f"Неожиданная ошибка при обработке файла {file_path}: {e}")
         return []
+
+
 

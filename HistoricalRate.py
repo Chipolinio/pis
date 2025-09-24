@@ -1,6 +1,6 @@
 from BaseRate import BaseRate
 from dataclasses import dataclass
-from errors import ValidationError
+from Errors import ValidationError
 from datetime import datetime
 
 @dataclass

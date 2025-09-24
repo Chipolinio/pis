@@ -3,17 +3,10 @@ from CurrencyRate import CurrencyRate
 from HistoricalRate import HistoricalRate
 from RateWithSource import RateWithSource
 from RateWithFee import RateWithFee
-from errors import ParsingError
-from typing import List
+from Errors import ParsingError
 
 class Parser:
     """Класс для парсинга."""
-    def __init__(self):
-        self.currency_rate: List[CurrencyRate] = []
-        self.historical_rate: List[HistoricalRate] = []
-        self.rate_with_source: List[RateWithSource] = []
-        self.rate_with_fee: List[RateWithFee] = []
-
     @staticmethod
     def parse_date(date_str: str) -> tuple[str, str, str]:
         """Парсит строку с датой в формате YYYY.MM.DD"""
@@ -32,7 +25,6 @@ class Parser:
                 rate=float(parts[2]),
                 date=self.parse_date(parts[3])
             )
-            self.currency_rate.append(obj)
             return obj
         except Exception as e:
             raise ParsingError(f"Ошибка парсинга currency_rate: {line}") from e
@@ -48,7 +40,6 @@ class Parser:
                 from_date=self.parse_date(parts[3]),
                 to_date=self.parse_date(parts[4])
             )
-            self.historical_rate.append(obj)
             return obj
         except Exception as e:
             raise ParsingError(f"Ошибка парсинга historical_rate: {line}") from e
@@ -64,7 +55,6 @@ class Parser:
                 date=self.parse_date(parts[3]),
                 source=parts[4].replace('"', '')
             )
-            self.rate_with_source.append(obj)
             return obj
         except Exception as e:
             raise ParsingError(f"Ошибка парсинга rate_with_source: {line}") from e
@@ -80,26 +70,9 @@ class Parser:
                 date=self.parse_date(parts[3]),
                 fee=float(parts[4])
             )
-            self.rate_with_fee.append(obj)
             return obj
         except Exception as e:
             raise ParsingError(f"Ошибка парсинга rate_with_fee: {line}") from e
-
-    def get_all_value(self) -> List[BaseRate]:
-        """Возвращает все валютные записи"""
-        all_value: List[BaseRate] = []
-        all_value.extend(self.currency_rate)
-        all_value.extend(self.historical_rate)
-        all_value.extend(self.rate_with_source)
-        all_value.extend(self.rate_with_fee)
-        return all_value
-
-    def clear_data(self) -> None:
-        """Очищает все внутренние списки"""
-        self.currency_rate.clear()
-        self.historical_rate.clear()
-        self.rate_with_source.clear()
-        self.rate_with_fee.clear()
 
 
 

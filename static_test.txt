@@ -1,0 +1,3 @@
+flake8 BaseRate.py DatedRate.py CurrencyRate.py HistoricalRate.py RateWithSource.py RateWithFee.py Parser.py file_manager.py errors.py main.py
+
+mypy BaseRate.py DatedRate.py CurrencyRate.py HistoricalRate.py RateWithSource.py RateWithFee.py Parser.py file_manager.py errors.py main.py

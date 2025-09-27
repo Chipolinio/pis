@@ -1,22 +1,26 @@
-from parse import parse_currency_rate, parse_historical_rate, parse_rate_with_source, parse_rate_with_fee
-from file_manaher import parse_file
-
+from file_manager import process_file
+from CurrencyRateParser import CurrencyRateParser
+from HistoricalRateParser import HistoricalRateParser
+from RateWithSourceParser import RateWithSourceParser
+from RateWithFeeParser import RateWithFeeParser
 
 def main() -> None:
-    file_parsers = [
-        ("1.txt", parse_currency_rate),
-        ("2.txt", parse_historical_rate),
-        ("3.txt", parse_rate_with_source),
-        ("4.txt", parse_rate_with_fee),
+    parsers = [
+        ('1.txt', CurrencyRateParser(), "Курсы валют", "currency"),
+        ('2.txt', HistoricalRateParser(), "Исторические курсы", "historical"),
+        ('3.txt', RateWithSourceParser(), "Курсы с источником", "with_source"),
+        ('4.txt', RateWithFeeParser(), "Курсы с комиссией", "with_fee")
     ]
 
-    for file_path, func in file_parsers:
-        objects = parse_file(file_path, func)
-        for obj in objects:
-            print(obj)
+    all_objects = {parser[-1]: [] for parser in parsers}
 
-    print()
+    for file_path, parser, data_name, key in parsers:
+        all_objects[key] = process_file(file_path, parser, data_name)
 
+    print("=== Сводная информация ===")
+    for key, objs in all_objects.items():
+        print(f"Всего записей {key}: {len(objs)}")
+    print(f"Всего валютных записей: {sum(len(v) for v in all_objects.values())}")
 
 if __name__ == "__main__":
     main()
